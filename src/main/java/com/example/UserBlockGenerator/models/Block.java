@@ -7,12 +7,14 @@ public class Block {
     public long height;
     private final User body;
     private long time = new Date().getTime();
+    public String previousBlockHash = "";
 
-    public Block(String hash, long height, User body, long time) {
+    public Block(String hash, long height, User body, long time, String previousBlockHash) {
         this.hash = hash;
         this.height = height;
         this.body = body;
         this.time = time;
+        this.previousBlockHash = previousBlockHash;
     }
 
     public Block(User body) {
@@ -33,5 +35,9 @@ public class Block {
 
     public long getTime() {
         return time;
+    }
+
+    public String getPreviousBlockHash() {
+        return previousBlockHash;
     }
 }
