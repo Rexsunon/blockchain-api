@@ -3,12 +3,12 @@ package com.example.UserBlockGenerator.models;
 import java.util.Date;
 
 public class Block {
-    private String hash = "";
-    private long height;
+    public String hash = "";
+    public long height;
     private final User body;
-    private Date time;
+    private long time = new Date().getTime();
 
-    public Block(String hash, long height, User body, Date time) {
+    public Block(String hash, long height, User body, long time) {
         this.hash = hash;
         this.height = height;
         this.body = body;
@@ -31,7 +31,7 @@ public class Block {
         return body;
     }
 
-    public Date getTime() {
+    public long getTime() {
         return time;
     }
 }
