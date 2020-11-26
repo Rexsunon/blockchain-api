@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 public class BlockController {
-    private List<Block> blocks = new ArrayList<>();
+    private final List<Block> blocks = new ArrayList<>();
 
     /**
      * Create block request, Accepts the user's credentials as user body
