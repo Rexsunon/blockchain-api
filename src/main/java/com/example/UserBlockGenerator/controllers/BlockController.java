@@ -16,24 +16,37 @@ import java.util.List;
 public class BlockController {
     private List<Block> blocks = new ArrayList<>();
 
+    /**
+     * Create block request, Accepts the user's credencals as user body
+     *
+     * @param user Takes user model as request body
+     * @return an array of blocks (the block chain)
+     */
     @PostMapping("/block")
     public List<Block> postBlock(@RequestBody User user) {
-        setBlock(user);
+        setBlock(user); // Pass the request body (user model) to the setBlock method
         return blocks;
     }
 
+    /**
+     * A method that accepts a user model and creates a block
+     *
+     * @param user accepts a user model
+     */
     private void setBlock(User user) {
-        Block blockAux = new Block(user);
-        if (blocks.size() > 0)
-            blockAux.height = blocks.size();
-
-        blockAux.hash = Hashing.sha256().hashObject(user, PersonFunnel.INSTANCE).toString();
-        blocks.add(blockAux);
+        Block blockAux = new Block(user); // Create new block
+        if (blocks.size() > 0) { // Check if the length of the block chain is greater than zero
+            blockAux.height = blocks.size(); // Add the size of the block as the new height of the block
+            blockAux.previousBlockHash = blocks.get(blocks.size() - 1).hash; // Set the previous hash
+        }
+        blockAux.hash = Hashing.sha256().hashObject(user, UserFunnel.INSTANCE).toString(); // Hash the user model
+        blocks.add(blockAux); // Add block to block chain
     }
 }
 
-enum PersonFunnel implements Funnel<User> {
+enum UserFunnel implements Funnel<User> {
     INSTANCE;
+
     public void funnel(User user, PrimitiveSink into) {
         into.putLong(user.getId())
                 .putUnencodedChars(user.getName());
