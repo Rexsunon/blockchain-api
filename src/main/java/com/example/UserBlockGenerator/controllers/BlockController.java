@@ -17,7 +17,7 @@ public class BlockController {
     private List<Block> blocks = new ArrayList<>();
 
     /**
-     * Create block request, Accepts the user's credencals as user body
+     * Create block request, Accepts the user's credentials as user body
      *
      * @param user Takes user model as request body
      * @return an array of blocks (the block chain)
